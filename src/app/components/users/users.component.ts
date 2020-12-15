@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '../../models/User'
-import { DataService } from '../../services/data.service'
+import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'app-users',
@@ -28,12 +28,18 @@ export class UsersComponent implements OnInit {
   enableAdd: boolean = false;
   showUserForm: boolean = false;
   @ViewChild('userForm') form: any;
+  data: any;
 
-  constructor(private _dataService: DataService) { }
+  constructor(private _userService: UserService) { }
 
   ngOnInit(): void {
-    this.users = this._dataService.getUsers()
+    this._userService.getData().subscribe(data => {
+      console.log(data)
+    })
+    this._userService.getUsers().subscribe(users => {
+      this.users = users;
       this.loaded = true;
+    })
   };
 
   toggleHide(user: User) {
@@ -47,7 +53,7 @@ export class UsersComponent implements OnInit {
       value.isActive = true;
       value.registered = new Date()
       value.hide = true;
-      this._dataService.addUser(value);
+      this._userService.addUser(value);
       this.form.reset()
     }
   };
