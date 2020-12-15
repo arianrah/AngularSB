@@ -7,7 +7,9 @@ import { User } from '../../models/User'
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent implements OnInit {
+
   user: User = {
     firstName: '',
     lastName: '',
@@ -17,7 +19,8 @@ export class UsersComponent implements OnInit {
       city: '',
       province: ''
     }
-  }
+  };
+  
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
@@ -55,26 +58,11 @@ export class UsersComponent implements OnInit {
         }
       ];
       this.loaded = true;
-  }
-  // addUser() {
-  //   this.user.isActive = true;
-  //   this.user.registered = new Date()
-  //   this.users.unshift(this.user)
-  //   this.user = {
-  //     firstName: '',
-  //     lastName: '',
-  //     email: '',
-  //     address: {
-  //       street: '',
-  //       city: '',
-  //       province: ''
-  //     }
-  //   }
-  // }
+  };
 
   toggleHide(user: User) {
     user.hide = !user.hide
-  }
+  };
 
   onSubmit({value, valid}: {value: User, valid: boolean}) {
     if (!valid) {
@@ -86,5 +74,6 @@ export class UsersComponent implements OnInit {
       this.users.unshift(value)
       this.form.reset()
     }
-  }
+  };
+
 }
