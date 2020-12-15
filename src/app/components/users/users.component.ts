@@ -18,15 +18,17 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
       this.users = [
         {
-          firstName: 'Ari',
-          lastName: 'Rah',
-          age: 25,
+          firstName: 'John',
+          lastName: 'Doe',
+          age: 60,
           address: {
             street: '41st Avenue',
             city: 'Vancouver',
             province: 'BC'
           },
-          image: 'http://lorempixel.com/600/600/people/3'
+          isActive: true,
+          registered: new Date('08/02/2020 08:30:00'),
+          hide: true
         },
         {
           firstName: 'Bob',
@@ -37,7 +39,9 @@ export class UsersComponent implements OnInit {
             city: 'West Vancouver',
             province: 'BC'
           },
-          image: 'http://lorempixel.com/600/600/people/2'
+          isActive: false,
+          registered: new Date('010/21/2020 12:30:00'),
+          hide: true
         },
         {
           firstName: 'Steven',
@@ -48,17 +52,19 @@ export class UsersComponent implements OnInit {
             city: 'Vancouver',
             province: 'BC'
           },
-          image: 'http://lorempixel.com/600/600/people/1'
+          isActive: true,
+          registered: new Date('011/02/2020 011:25:00'),
+          hide: true
         }
       ];
       this.loaded = true;
-    // this.showExtended = false;
-    // this.addUser({
-    //     firstName: 'Michael',
-    //     lastName: 'Angelo'
-    // });
   }
   addUser(user: User) {
     this.users.push(user)
   }
+
+  toggleHide(user: User) {
+    user.hide = !user.hide
+  }
+
 }

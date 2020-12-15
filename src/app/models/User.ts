@@ -7,5 +7,7 @@ export interface User {
     city?: string,
     province?: string
   },
-  image?: string
+  isActive?: boolean,
+  registered?: any,
+  hide?: boolean
 }
