@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '../../models/User'
 
@@ -8,10 +8,22 @@ import { User } from '../../models/User'
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: {
+      street: '',
+      city: '',
+      province: ''
+    }
+  }
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
-  enableAdd: boolean = true;
+  enableAdd: boolean = false;
+  showUserForm: boolean = false;
+  @ViewChild('userForm') form: any;
 
   constructor() { }
 
@@ -20,12 +32,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'John',
           lastName: 'Doe',
-          age: 60,
-          address: {
-            street: '41st Avenue',
-            city: 'Vancouver',
-            province: 'BC'
-          },
+          email: 'johndoe@gmail.com',
           isActive: true,
           registered: new Date('08/02/2020 08:30:00'),
           hide: true
@@ -33,12 +40,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Bob',
           lastName: 'The Builder',
-          age: 32,
-          address: {
-            street: '52nd Avenue',
-            city: 'West Vancouver',
-            province: 'BC'
-          },
+          email: 'bobthebuilder@gmail.com',
           isActive: false,
           registered: new Date('010/21/2020 12:30:00'),
           hide: true
@@ -46,12 +48,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Steven',
           lastName: 'Aoki',
-          age: 29,
-          address: {
-            street: 'Fraser St',
-            city: 'Vancouver',
-            province: 'BC'
-          },
+          email: 'stevenaoki@gmail.com',
           isActive: true,
           registered: new Date('011/02/2020 011:25:00'),
           hide: true
@@ -59,12 +56,35 @@ export class UsersComponent implements OnInit {
       ];
       this.loaded = true;
   }
-  addUser(user: User) {
-    this.users.push(user)
-  }
+  // addUser() {
+  //   this.user.isActive = true;
+  //   this.user.registered = new Date()
+  //   this.users.unshift(this.user)
+  //   this.user = {
+  //     firstName: '',
+  //     lastName: '',
+  //     email: '',
+  //     address: {
+  //       street: '',
+  //       city: '',
+  //       province: ''
+  //     }
+  //   }
+  // }
 
   toggleHide(user: User) {
     user.hide = !user.hide
   }
 
+  onSubmit({value, valid}: {value: User, valid: boolean}) {
+    if (!valid) {
+      console.log('Form is not valid')
+    } else {
+      value.isActive = true;
+      value.registered = new Date()
+      value.hide = true;
+      this.users.unshift(value)
+      this.form.reset()
+    }
+  }
 }
